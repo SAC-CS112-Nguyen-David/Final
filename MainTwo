@@ -1,6 +1,6 @@
 //made with Eclipse
 
-public class MainTwo extends BlackJackTwo { // here is using polymorphism and
+public class MainTwo extends BlackJackTwo { // Polymorphism/Inheritance: here is using polymorphism and
 											// inheritance to extend class
 											// BlackJackTwo
 
