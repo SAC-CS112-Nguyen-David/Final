@@ -22,7 +22,7 @@ public class BlackJackTwo {
 		game();
 	}
 
-	void displayCard() // all card values encapsulated in its own method
+	void displayCard() // Encapsulation: all card values encapsulated in its own method
 	{
 		currentcard = ran.nextInt(14); // generate betwee 0 and 14
 		while (currentcard == 0) {
