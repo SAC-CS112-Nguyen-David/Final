@@ -1,1 +1,124 @@
 
+import java.util.Random;
+import java.util.Scanner;
+
+public class BlackJackTwo {
+	String type;
+	int currentcard;
+	int total = 0; // will end dealer hands or your hand
+	static int dealerTotal = 0; // this is all encapsulated in recursion call..
+								// doesnt care if player or dealer
+	static int playerTotal = 0; // put to static so you can compare the two at
+								// the end
+	Random ran = new Random(); // randoim dice-card generater
+	Scanner scan = new Scanner(System.in); // hit or stay
+
+	// constructor, player or dealer
+	public BlackJackTwo(String player) {
+		type = player;
+		// start deal and game
+		Deal();
+		game();
+	}
+
+	void displayCard() // all card values encapsulated in its own method
+	{
+		currentcard = ran.nextInt(14); // generate betwee 0 and 14
+		while (currentcard == 0) {
+			currentcard = ran.nextInt(14);
+
+		}
+		switch (currentcard) { // these are 11-14 face values JQKA
+		case 11:
+			System.out.println("\t" + type + " drew a Jack.");
+			total = total + 10;
+			System.out
+					.println("\t" + type + " Current total: " + total + ".\n");
+			break;
+		case 12:
+			System.out.println("\t" + type + " drew a Queen.");
+			total = total + 10;
+			System.out
+					.println("\t" + type + " Current total: " + total + ".\n");
+			break;
+		case 13:
+			System.out.println("\t" + type + " drew a King.");
+			total = total + 10;
+			System.out
+					.println("\t" + type + " Current total: " + total + ".\n");
+			break;
+		case 14:
+			System.out.println("\t" + type + " drew a Ace.");
+			total = total + 11; // ace is 11
+			System.out
+					.println("\t" + type + " Current total: " + total + ".\n");
+			break;
+		default:
+			// these are 1-10
+			System.out.println("\t" + type + " drew a " + currentcard + ".");
+			total = total + currentcard;
+			System.out
+					.println("\t" + type + " Current total: " + total + ".\n");
+
+		}
+	}
+
+	void Deal() { // 2nd card
+		System.out.println("First Card: ");
+		displayCard(); // recall to generate 2nd card
+		System.out.println("Second Card: ");
+		displayCard();
+
+	}
+
+	void game() {
+		if (total <= 21) {
+			if (!(type.equals("Dealer"))) { // if you didnt bust here is option
+											// to hit and make sure ur not
+											// dealer
+				System.out.println("Would you like to Hit? (Y/N)");
+				if (scan.nextLine().equalsIgnoreCase("Y")) {
+					displayCard(); // now generate another card
+					game(); // now goto game to see if u want to hit or not
+				} else {
+					System.out.println("Your total: " + total + "\n\n");
+					playerTotal = total;
+
+				}
+			}
+		} else { // if u busted, type can either be the player or dealer
+			System.out.println(type + " busted (Lose):" + total);
+			System.exit(0); // makes it jump out and goto main
+
+		}
+
+		if (type.equalsIgnoreCase("Dealer")) {
+			if ((total < 17 && total <= 21 || total < playerTotal)) {
+				displayCard();
+				game();
+			} else {
+				if (total < 21)
+					dealerTotal = total;
+			}
+		}
+	}
+
+	public void WhoWon() { // see who won the game
+		if (dealerTotal == 0) {
+			System.out.println("Dealer Busted, Player wins");
+			if (playerTotal == 0) {
+				System.out.println("Player Busted, Dealer wins");
+			}
+			if (dealerTotal < playerTotal) {
+				System.out.println("Player won, Dealer loses");
+			} else if (dealerTotal > playerTotal) {
+				System.out.println("Dealer won, Player loses");
+			}
+			if (dealerTotal == playerTotal) {
+				System.out.println("Draw");
+			}
+		}
+
+	}
+
+}
