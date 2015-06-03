@@ -2,7 +2,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class BlackJackTwo {
+public class BlackJackFinal {
 	String type;
 	int currentcard;
 	int total = 0; // will end dealer hands or your hand
